@@ -12,9 +12,15 @@ files.then(function (result) {
       const fileName = dirent.name;
       stat(path.join(__dirname, 'secret-folder', fileName), (err, stats) => {
         const fileNameSplitted = fileName.split('.');
-        console.log(
-          `${fileNameSplitted[0]} - ${fileNameSplitted[1]} - ${stats.size} bytes`,
-        );
+        const fileExtension =
+          fileNameSplitted[0] === ''
+            ? ''
+            : fileNameSplitted[fileNameSplitted.length - 1];
+        const file =
+          fileNameSplitted[0] === ''
+            ? `.${fileNameSplitted[fileNameSplitted.length - 1]}`
+            : fileName.replace(`.${fileExtension}`, '');
+        console.log(`${file} - ${fileExtension} - ${stats.size} bytes`);
       });
     }
   });
