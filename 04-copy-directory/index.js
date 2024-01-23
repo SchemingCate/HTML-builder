@@ -1,4 +1,4 @@
-const { mkdir, copyFile, readdir } = require('node:fs/promises');
+const { mkdir, copyFile, readdir, rm } = require('node:fs/promises');
 const path = require('node:path');
 
 async function makeDirectory(dirPath) {
@@ -7,6 +7,7 @@ async function makeDirectory(dirPath) {
 }
 
 async function copy(newDir, dirToRead) {
+  await rm(newDir, { recursive: true, force: true });
   const newFolder = newDir;
   await makeDirectory(newFolder);
 

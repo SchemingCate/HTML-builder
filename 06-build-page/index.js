@@ -1,6 +1,6 @@
 const path = require('node:path');
 const fs = require('fs');
-const { readFile, mkdir, copyFile, readdir } = require('node:fs/promises');
+const { readFile, mkdir, copyFile, readdir, rm } = require('node:fs/promises');
 
 async function fileContent(filePath) {
   const output = await readFile(filePath, { encoding: 'utf8' });
@@ -18,6 +18,7 @@ async function createFile(path, content) {
 }
 
 async function copy(newDir, dirToRead) {
+  await rm(newDir, { recursive: true, force: true });
   const newFolder = newDir;
   await makeDirectory(newFolder);
 
